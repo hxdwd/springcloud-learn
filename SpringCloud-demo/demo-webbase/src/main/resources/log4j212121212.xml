@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<!-- Configuration后面的status，这个用于设置log4j2自身内部的信息输出，可以不设置，当设置成trace时， 你会看到log4j2内部各种详细输出。可以设置成OFF(关闭)
+	或 Error(只输出错误信息)。 30s 刷新此配置 -->
+<configuration status="WARN" monitorInterval="30">
+
+	<!-- 日志文件目录、压缩文件目录、日志格式配置 -->
+	<Properties>
+		<!-- 日志路径 -->
+		<Property name="LOG_DIR">E:\logs\demo
+		</Property>
+		<!-- 日志格式 -->
+		<Property name="LOG_PATTERN">%d{yyyy-MM-dd HH:mm:ss} - %m%n</Property>
+		<!-- 联网日志名称（正常操作日志） -->
+		<Property name="LOG_CONN_NAME">democonn.log</Property>
+		<!-- 全部日志名称 -->
+		<Property name="LOG_MAIN_NAME">demomain.log</Property>
+		<!-- 服务器端报错日志名称 -->
+		<Property name="LOG_ERROR_NAME">demoerror.log</Property>
+	</Properties>
+	
+	<Appenders>
+		<!-- 输出控制台日志的配置 -->
+		<Console name="CONSOLE" target="SYSTEM_OUT">
+			<!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch） -->
+			<ThresholdFilter level="INFO" onMatch="ACCEPT"
+				onMismatch="DENY" />
+			<PatternLayout pattern="${LOG_PATTERN}" />
+		</Console>
+		
+		<!-- 联网日志 -->
+		<!-- name:此格式输出日志的唯一标识，可以配置多个不同格式，需要哪个用哪个 -->
+		<!-- fileName:当前日志-->
+		<!-- filePattern:昨天以及之前的日志-->
+		<!-- interval:表示一天一个文件，有人会说是小时，本人测试是天 -->
+		<!-- modulate:没找到解释 -->
+		<RollingRandomAccessFile
+			name="DemoConnFile" fileName="${LOG_DIR}/${LOG_CONN_NAME}"
+			filePattern="${LOG_DIR}/${LOG_CONN_NAME}.%d{yyyyMMdd}">
+			<PatternLayout pattern="${LOG_PATTERN}" />
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1"
+					modulate="true" />
+			</Policies>
+		</RollingRandomAccessFile>
+		
+		<!-- 全部日志 -->
+		<RollingRandomAccessFile
+			name="DemoMainFile" fileName="${LOG_DIR}/${LOG_MAIN_NAME}"
+			filePattern="${LOG_DIR}/${LOG_MAIN_NAME}.%d{yyyyMMdd}">
+			<PatternLayout pattern="${LOG_PATTERN}" />
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1"
+					modulate="true" />
+			</Policies>
+		</RollingRandomAccessFile>
+		
+		<!-- 服务器报错日志 -->
+		<RollingRandomAccessFile
+			name="DemoErrorFile"
+			fileName="${LOG_DIR}/${LOG_ERROR_NAME}"
+			filePattern="${LOG_DIR}/${LOG_ERROR_NAME}.%d{yyyyMMdd}">
+			<PatternLayout pattern="${LOG_PATTERN}" />
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1"
+					modulate="true" />
+			</Policies>
+			<Filters>
+				<!-- 只记录error级别信息 -->
+				<ThresholdFilter level="error" onMatch="ACCEPT"
+					onMismatch="DENY" />
+			</Filters>
+		</RollingRandomAccessFile>
+
+	</Appenders>
+	
+	<Loggers>
+		<root level="info">
+			<appender-ref ref="CONSOLE" />
+			<appender-ref ref="DemoMainFile" />
+		</root>
+		
+		<logger name="DemoErrorLog" level="error"
+			additivity="false">
+			<appender-ref ref="DemoErrorFile" />
+		</logger>
+		<logger name="DemoConnLog" additivity="false">
+			<appender-ref ref="DemoConnFile" />
+		</logger>
+	</Loggers>
+
+</configuration>

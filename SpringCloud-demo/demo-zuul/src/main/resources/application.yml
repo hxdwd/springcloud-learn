@@ -1,0 +1,20 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:9990/eureka/
+server:
+  port: 9995
+spring:
+  application:
+    name: demo-zuul
+zuul:
+  routes:
+    api-a:
+      path: /api-ucenter/**
+      serviceId: demo-ucenter
+    api-b:
+      path: /api-webbase/**
+      serviceId: demo-webbase
+    api-c:
+        path: /api-pcenter/**
+        serviceId: demo-pcenter

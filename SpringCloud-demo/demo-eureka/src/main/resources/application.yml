@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: demo-eureka    #工程名(在注册中心的页面看到的名字)
+  profiles:
+    active: peer1   #读取配置文件，开发时一个，运营时一个  写-后面的就行

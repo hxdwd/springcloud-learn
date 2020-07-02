@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: demo-turbine
+server:
+  port: 9993
+turbine:
+  app-config: demo-webbase,demo-ucenter # 需要监控的服务
+  aggregator: default #
+  cluster-name-expression: new String("default")
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:9990/eureka/

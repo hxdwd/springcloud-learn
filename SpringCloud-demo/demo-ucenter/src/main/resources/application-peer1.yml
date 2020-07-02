@@ -1,0 +1,23 @@
+server:
+  port: 9991  #\u7AEF\u53E3\u53F7
+spring:
+  zipkin:
+    base-url: http://localhost:9411
+  sleuth:
+    sampler:
+      probability: 1.0
+
+eureka:
+  client:
+    register-with-eureka: true  #\u662F\u5426\u6CE8\u518C(\u670D\u52A1\u7684\u63D0\u4F9B\u8005\u662F\u9700\u8981\u6CE8\u518C\u5230\u6CE8\u518C\u4E2D\u5FC3\u7684) \u9ED8\u8BA4\u5C31\u662Ftrue
+    fetch-registry: true   #\u662F\u5426\u83B7\u53D6\u6CE8\u518C\u4FE1\u606F
+    service-url:
+      defaultZone: http://localhost:9990/eureka/  #\u8FD9\u91CC\u548C\u6CE8\u518C\u4E2D\u5FC3\u7684\u4E00\u6837\u5C31\u80FD\u6CE8\u518C\u5230\u6CE8\u518C\u4E2D\u5FC3
+  instance:
+    prefer-ip-address: true
+# zipkin
+#logging:
+#  level:
+#    org.springframework.cloud.openfeign: debug
+
+testValue: peer1

@@ -1,0 +1,21 @@
+
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/fzy657300/SpringCloud-demo-all/     # \u914D\u7F6Egit\u4ED3\u5E93\u7684\u5730\u5740
+          search-paths: demo-config
+#          username: fzy657300@163.com
+#          password: feng999+
+server:
+  port: 9994
+
+eureka:                         #注册服务
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:9990/eureka/
+
+security:                       #是否开启基本的鉴权，默认为true
+  basic:
+    enabled: false

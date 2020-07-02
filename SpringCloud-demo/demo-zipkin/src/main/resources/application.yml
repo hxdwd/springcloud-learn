@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: demo-zipkin
+server:
+  port: 9998
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:9990/eureka/

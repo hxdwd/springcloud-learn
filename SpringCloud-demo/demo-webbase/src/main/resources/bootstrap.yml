@@ -1,0 +1,7 @@
+#spring:
+#  cloud:
+#    config:
+#      name: one-config
+#      profile: dev
+#      uri: http://localhost:9994/
+#      label: master

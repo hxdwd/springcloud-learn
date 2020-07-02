@@ -1,0 +1,44 @@
+spring:
+  application:
+    name: demo-webbase  #工程名(在注册中心的页面看到的名字)
+  zipkin:
+    base-url: http://localhost:9411
+  sleuth:
+    sampler:
+      probability: 1.0
+  thymeleaf:
+    cache: false  #关闭缓存才能查看实时页面(开发)
+    mode: LEGACYHTML5
+    encoding: UTF-8
+    servlet:
+      content-type: text/html
+  servlet:
+    multipart:
+      max-request-size: 10MB #单次上传总大小
+      max-file-size: 10MB #单个文件最大值
+server:
+  port: 9992  #端口号
+
+
+eureka:
+  client:
+    register-with-eureka: true  #是否注册(服务的提供者是需要注册到注册中心的) 默认就是true
+    fetch-registry: true   #是否获取注册信息
+    service-url:
+      defaultZone: http://localhost:9990/eureka/  #这里和注册中心的一样就能注册到注册中心
+  instance:
+    prefer-ip-address: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh
+
+holle: 123
+#
+#logging:
+#  config: classpath:log4j2.xml
+#
+#excel:
+#  config: classpath:excel.xml
